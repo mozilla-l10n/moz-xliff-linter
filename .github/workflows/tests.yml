@@ -1,0 +1,35 @@
+name: Unit Tests
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  linter:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version:
+          - '3.11'
+          - '3.12'
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+      - name: Set up Python 3
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-dependency-glob: |
+            **/requirements.txt
+          version: "0.6.5"
+      - name: Install Dependencies
+        run: uv pip install -r .github/requirements.txt
+        env:
+          UV_SYSTEM_PYTHON: 1
+      - name: Run tests
+        run: |
+          python -m unittest discover

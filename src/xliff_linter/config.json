@@ -1,0 +1,19 @@
+{
+    "ellipsis": {
+        "enabled": true,
+        "exclusions": []
+    },
+    "quotes": {
+        "enabled": true,
+        "exclusions": []
+    },
+    "placeables": {
+        "enabled": true,
+        "exclusions": []
+    },
+    "brands": {
+        "enabled": true,
+        "brand_names": [],
+        "exclusions": []
+    }
+}
