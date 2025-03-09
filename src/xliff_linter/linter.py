@@ -16,9 +16,12 @@ from lxml import etree
 class XliffChecker:
     NS = {"x": "urn:oasis:names:tc:xliff:document:1.2"}
 
-    def __init__(self, config):
+    def __init__(self, config, platform="ios"):
         self.config = config
-        self.placeable_pattern = r"%(?:\d+\$@|@|d)"
+        if platform == "ios":
+            self.placeable_pattern = r"%(?:\d+\$@|@|d)"
+        else:
+            self.placeable_pattern = r"%\d"
 
     def process_content(self, content, file_path="test.xliff", ref_path=None):
         """
@@ -156,7 +159,7 @@ def main():
         sys.exit("No XLIFF files found.")
     files.sort()
 
-    checker = XliffChecker(config)
+    checker = XliffChecker(config, platform=args.platform)
     all_errors = []
 
     for file_path in files:

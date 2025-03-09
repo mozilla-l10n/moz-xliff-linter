@@ -50,12 +50,14 @@ class TestPlaceables(unittest.TestCase):
       <trans-unit id="test_placeables_error_5">
         <source>This is a test with two placeables: %1$@ and %2$@</source>
       </trans-unit>
+      <trans-unit id="test_placeables_ok_5">
+        <source>This is a test with a placeable %1 for qt</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>
 """
         errors = checker.process_content(content, "dummy.xliff", ref_path=".")
-        print("\n".join(errors))
         self.assertEqual(len(errors), 6)
         self.assertTrue("%@" in errors[0])
         self.assertTrue("%1$@" in errors[1])
